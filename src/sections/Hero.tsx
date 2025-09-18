@@ -1,4 +1,4 @@
-import memojiImage from "@/assets/images/memoji-computer.png";
+import memojiImage from "@/assets/images/fahriza5.png";
 import Image from "next/image";
 import ArrowDown from "@/assets/icons/arrow-down.svg";
 import grainImage from "@/assets/images/grain.jpg";
@@ -145,7 +145,7 @@ export const HeroSection = () => {
           </h1>
           <p className="mt-4 text-center text-white/60 md:text-lg">
             I specialize in transforming designs into functional,
-            high-performing web applications. Let's discuss your next project.
+            high-performing web applications. Let&apos;s discuss your next project.
           </p>
         </div>
 
@@ -158,7 +158,7 @@ export const HeroSection = () => {
           </button>
           <button className="inline-flex items-center gap-2 border border-white bg-white text-gray-900 h-12 px-6 rounded-xl">
             <span className="font-semibold ">👋</span>
-            <span>Let's Connect</span>
+            <span>Let&apos;s Connect</span>
           </button>
         </div>
       </div>
