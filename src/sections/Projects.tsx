@@ -1,106 +1,167 @@
+"use client";
+
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import darkSaasLandingPage from "@/assets/images/dark-saas-landing-page.png";
 import lightSaasLandingPage from "@/assets/images/light-saas-landing-page.png";
 import aiStartupLandingPage from "@/assets/images/ai-startup-landing-page.png";
 import Image from "next/image";
-import CheckCircleIcon from "@/assets/icons/check-circle.svg";
 import ArrowUpRightIcon from "@/assets/icons/arrow-up-right.svg";
-import grainImage from "@/assets/images/grain.jpg";
 
 const portfolioProjects = [
   {
-    company: "Acme Corp",
-    year: "2022",
+    id: 1,
     title: "Dark Saas Landing Page",
-    results: [
-      { title: "Enhanced user experience by 40%" },
-      { title: "Improved site speed by 50%" },
-      { title: "Increased mobile traffic by 35%" },
-    ],
-    link: "https://youtu.be/4k7IdSLxh6w",
+    category: "web",
     image: darkSaasLandingPage,
+    link: "https://youtu.be/4k7IdSLxh6w",
   },
   {
-    company: "Innovative Co",
-    year: "2021",
+    id: 2,
     title: "Light Saas Landing Page",
-    results: [
-      { title: "Boosted sales by 20%" },
-      { title: "Expanded customer reach by 35%" },
-      { title: "Increased brand awareness by 15%" },
-    ],
-    link: "https://youtu.be/7hi5zwO75yc",
+    category: "mobile",
     image: lightSaasLandingPage,
+    link: "https://youtu.be/7hi5zwO75yc",
   },
   {
-    company: "Quantum Dynamics",
-    year: "2023",
+    id: 3,
     title: "AI Startup Landing Page",
-    results: [
-      { title: "Enhanced user experience by 40%" },
-      { title: "Improved site speed by 50%" },
-      { title: "Increased mobile traffic by 35%" },
-    ],
-    link: "https://youtu.be/Z7I5uSRHMHg",
+    category: "design",
     image: aiStartupLandingPage,
+    link: "https://youtu.be/Z7I5uSRHMHg",
   },
 ];
 
 export const ProjectsSection = () => {
+  const [activeFilter, setActiveFilter] = useState("all");
+
+  const filterItems = [
+    { id: "all", label: "All" },
+    { id: "web", label: "Web" },
+    { id: "mobile", label: "Mobile" },
+    { id: "design", label: "Design" },
+  ];
+
+  const filteredProjects = activeFilter === "all"
+    ? portfolioProjects
+    : portfolioProjects.filter(project => project.category === activeFilter);
+
+  const handleFilterClick = (id: string) => {
+    setActiveFilter(id);
+  };
+
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: {
+      opacity: 0,
+      scale: 0.8,
+      y: 20
+    },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      transition: {
+        type: "spring",
+        stiffness: 300,
+        damping: 24
+      }
+    },
+    exit: {
+      opacity: 0,
+      scale: 0.8,
+      y: -20,
+      transition: {
+        duration: 0.2
+      }
+    }
+  };
+
   return (
-    <section className="pb-16">
+    <section className="py-16" id="projects">
       <div className="container">
-        <div className="flex justify-center">
-          <p className="uppercase font-semibold tracking-widest bg-gradient-to-r from-emerald-300 to-sky-400 text-transparent  bg-clip-text text-center">
-            Real-world Result
+        <div className="text-center">
+          <p className="uppercase font-semibold tracking-widest bg-gradient-to-r from-emerald-300 to-sky-400 text-transparent bg-clip-text">
+            My Portfolio
           </p>
+          <h2 className="font-serif text-3xl mt-6">Recent Projects</h2>
         </div>
-        <h2 className="font-serif text-3xl text-center mt-6">
-          Featured Projects
-        </h2>
-        <p className="text-center text-white/60 mt-4">
-          See how I transformed concept into engaging digital experiences
-        </p>
-        <div className="flex flex-col mt-10 gap-20">
-          {portfolioProjects.map((project) => (
-            <div
-              key={project.title}
-              className="bg-gray-800 rounded-3xl relative z-0 overflow-hidden after:z-10 after:content-[''] after:absolute after:inset-0 after:outline-2 after:outline after:outline-offset-2 after:rounded-3xl after:outline-white/20 px-8 pt-8 after:pointer-events-none"
-            >
-              <div
-                className="absolute inset-0 -z-10 opacity-5"
-                style={{
-                  backgroundImage: `url(${grainImage.src})`,
+
+        <div className="flex justify-center mt-8 mb-12">
+          <div className="flex flex-wrap gap-4">
+            {filterItems.map((item) => (
+              <motion.button
+                key={item.id}
+                onClick={() => handleFilterClick(item.id)}
+                className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                  activeFilter === item.id
+                    ? "bg-emerald-300 text-gray-900"
+                    : "bg-gray-800 text-white/60 hover:text-white"
+                }`}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                {item.label}
+              </motion.button>
+            ))}
+          </div>
+        </div>
+
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          key={activeFilter}
+        >
+          <AnimatePresence mode="wait">
+            {filteredProjects.map((project) => (
+              <motion.div
+                key={project.id}
+                variants={itemVariants}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                layout
+                className="bg-gray-800 rounded-xl overflow-hidden p-4"
+                whileHover={{
+                  scale: 1.05,
+                  transition: { type: "spring", stiffness: 300, damping: 20 }
                 }}
-              ></div>
-              <div className="bg-gradient-to-r from-emerald-300 to-sky-400 inline-flex gap-2 font-bold uppercase tracking-widest text-sm text-transparent bg-clip-text">
-                <span>{project.company}</span>
-                <span>&bull;</span>
-                <span>{project.year}</span>
-              </div>
-              <h3 className="font-serif text-2xl mt-2">{project.title}</h3>
-              <hr className="border-t-2 border-white/5 mt-4" />
-              <ul className="flex flex-col gap-4 mt-2">
-                {project.results.map((result) => (
-                  <li className="flex gap-2 text-sm text-white/60">
-                    <CheckCircleIcon className="size-5" />
-                    <span>{result.title}</span>
-                  </li>
-                ))}
-              </ul>
-              <a href={project.link}>
-                <button className="bg-white text-gray-950 h-12 w-full rounded-xl font-semibold inline-flex items-center justify-center gap-2 mt-8">
-                  <span>Visit Live Site</span>
-                  <ArrowUpRightIcon className="size-4" />
-                </button>
-              </a>
-              <Image
-                src={project.image}
-                alt={project.title}
-                className="mt-8 -mb-4"
-              />
-            </div>
-          ))}
-        </div>
+              >
+                <div className="relative">
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-48 object-cover rounded-lg"
+                  />
+                </div>
+                <div className="p-4 pt-6">
+                  <h3 className="text-xl font-semibold mb-4">{project.title}</h3>
+                  <motion.a
+                    href={project.link}
+                    className="inline-flex items-center gap-2 bg-emerald-300 text-gray-900 px-4 py-2 rounded-lg font-medium hover:bg-emerald-200 transition-colors"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <span>Demo</span>
+                    <ArrowUpRightIcon className="size-4" />
+                  </motion.a>
+                </div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
       </div>
     </section>
   );

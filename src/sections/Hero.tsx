@@ -8,7 +8,7 @@ import { HeroOrbit } from "@/components/HeroOrbit";
 
 export const HeroSection = () => {
   return (
-    <div className="py-32 md:py-48 lg:py-60 relative z-0 overflow-x-clip">
+    <div id="home" className="py-32 md:py-48 lg:py-60 relative z-0 overflow-x-clip">
       {/* Gambar latar belakang dengan opasitas rendah */}
       <div className="absolute inset-0 [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_70%,transparent)]">
         <div
@@ -140,12 +140,15 @@ export const HeroSection = () => {
 
         {/* Judul dan deskripsi teks */}
         <div className="max-w-lg mx-auto">
-          <h1 className="font-serif text-3xl md:text-5xl text-center mt-8 tracking-wide">
-            Building Exceptional User Experiences
+          <div className="text-center text-white/40 text-sm mt-3 mb-2 font-bold">
+            Hi, I&apos;m<br />
+            FAHRIZA KURNIAWAN
+          </div>
+          <h1 className="font-serif text-3xl md:text-5xl text-center tracking-wide">
+            Software Developer
           </h1>
           <p className="mt-4 text-center text-white/60 md:text-lg">
-            I specialize in transforming designs into functional,
-            high-performing web applications. Let&apos;s discuss your next project.
+            I create websites and mobile apps that are easy to use and look great. Let me help turn your ideas into reality.
           </p>
         </div>
 
@@ -157,8 +160,7 @@ export const HeroSection = () => {
             <ArrowDown className="size-4" />
           </button>
           <button className="inline-flex items-center gap-2 border border-white bg-white text-gray-900 h-12 px-6 rounded-xl">
-            <span className="font-semibold ">👋</span>
-            <span>Let&apos;s Connect</span>
+            <span>Hire Me</span>
           </button>
         </div>
       </div>
