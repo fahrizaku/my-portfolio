@@ -1,3 +1,6 @@
+"use client";
+
+import { useCallback } from "react";
 import memojiImage from "@/assets/images/fahriza5.png";
 import Image from "next/image";
 import ArrowDown from "@/assets/icons/arrow-down.svg";
@@ -7,6 +10,13 @@ import SparkleIcon from "@/assets/icons/sparkle.svg";
 import { HeroOrbit } from "@/components/HeroOrbit";
 
 export const HeroSection = () => {
+  const handleClick = useCallback((sectionId: string) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  }, []);
+
   return (
     <div id="home" className="py-32 md:py-48 lg:py-60 relative z-0 overflow-x-clip">
       {/* Gambar latar belakang dengan opasitas rendah */}
@@ -153,13 +163,21 @@ export const HeroSection = () => {
         </div>
 
         {/* Tombol untuk mengeksplorasi karya dan menghubungi */}
-        <div className="flex flex-col md:flex-row justify-center items-center mt-8 gap-4">
-          <button className="inline-flex items-center gap-2 border border-white/15 px-6 h-12 rounded-xl">
-            <span className="font-semibold ">Explore My Work</span>
+        <div className="flex flex-col md:flex-row justify-center items-center mt-8 gap-4 relative z-10">
+          <button
+            className="inline-flex items-center gap-2 border border-white/15 px-6 h-12 rounded-xl hover:bg-white/5 transition-colors cursor-pointer relative z-20"
+            onClick={() => handleClick('projects')}
+            type="button"
+          >
+            <span className="font-semibold">Explore My Work</span>
             {/* Ikon panah ke bawah */}
             <ArrowDown className="size-4" />
           </button>
-          <button className="inline-flex items-center gap-2 border border-white bg-white text-gray-900 h-12 px-6 rounded-xl">
+          <button
+            className="inline-flex items-center gap-2 border border-white bg-white text-gray-900 h-12 px-6 rounded-xl hover:bg-white/90 transition-colors cursor-pointer relative z-20"
+            onClick={() => handleClick('contact')}
+            type="button"
+          >
             <span>Hire Me</span>
           </button>
         </div>

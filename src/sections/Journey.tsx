@@ -118,7 +118,7 @@ export const JourneySection = () => {
           {/* Timeline */}
           <div className="relative">
             {/* Timeline line */}
-            <div className="absolute left-6 md:left-1/2 md:transform md:-translate-x-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-emerald-300 via-sky-400 to-emerald-300"></div>
+            <div className="absolute left-4 md:left-1/2 md:transform md:-translate-x-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-emerald-300 via-sky-400 to-emerald-300"></div>
 
             {/* Timeline items */}
             <div className="space-y-12">
@@ -131,11 +131,11 @@ export const JourneySection = () => {
                   }`}
                 >
                   {/* Timeline dot */}
-                  <div className="absolute left-6 md:left-1/2 md:transform md:-translate-x-1/2 w-3 h-3 bg-gray-900 rounded-full border-4 border-white z-10"></div>
+                  <div className="absolute left-4 md:left-1/2 md:transform md:-translate-x-1/2 transform -translate-x-1/2 w-3 h-3 bg-gray-900 rounded-full border-4 border-white z-10"></div>
 
                   {/* Content card */}
                   <motion.div
-                    className={`bg-gray-800 p-6 rounded-xl ml-16 md:ml-0 md:w-5/12 ${
+                    className={`bg-gray-800 p-6 rounded-xl ml-12 md:ml-0 md:w-5/12 ${
                       index % 2 === 0 ? 'md:mr-auto md:pr-8' : 'md:ml-auto md:pl-8'
                     }`}
                     whileHover={{ scale: 1.02 }}
